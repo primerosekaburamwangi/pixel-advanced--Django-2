@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Employee</title>
+    <link rel="stylesheet" href="{% static 'myapp/css/normal.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Add Employee</h2>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST" action="{% url 'create_emp' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+
+        <p class="link-row">
+            <a href="{% url 'show_employees' %}">View Employees</a>
+        </p>
+    </div>
+</body>
+
+</html>

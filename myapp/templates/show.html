@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Records</title>
+    <link rel="stylesheet" href="{% static 'myapp/css/normal.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Employee Records</h2>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+            {% for emp in employees %}
+            <tr>
+                <td>{{ emp.id }}</td>
+                <td>{{ emp.name }}</td>
+                <td>{{ emp.email }}</td>
+                <td>{{ emp.phone }}</td>
+                <td>
+                    <a href="{% url 'edit_employee' emp.id %}">Edit</a> |
+                    <a href="{% url 'delete_employee' emp.id %}" onclick="return confirm('Delete this employee?');">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No employees found.</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <p class="link-row">
+            <a href="{% url 'create_emp' %}">Add New Employee</a>
+        </p>
+    </div>
+</body>
+
+</html>
