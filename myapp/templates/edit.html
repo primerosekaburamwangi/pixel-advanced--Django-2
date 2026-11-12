@@ -15,7 +15,7 @@
         <form method="POST" action="{% url 'update_employee' employee.id %}">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Update</button>
+            <button type="submit">Update User</button>
         </form>
 
         <p class="link-row">

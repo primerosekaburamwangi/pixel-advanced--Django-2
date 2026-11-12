@@ -2,6 +2,10 @@ from django.contrib import admin
 
 from .models import Contact, Employee
 
+from .models import User
+
+admin.site.register(User)
+
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
