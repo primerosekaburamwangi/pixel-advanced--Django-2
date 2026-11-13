@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
+from django.urls import reverse
 
 from .models import Contact, Employee
 
@@ -27,6 +28,16 @@ class AppViewsTests(TestCase):
         response = self.client.get('/show/')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Alice')
+
+    def test_employee_edit_page_loads(self):
+        employee = Employee.objects.create(
+            name='Alice',
+            email='alice@example.com',
+            phone='1234567890',
+        )
+
+        response = self.client.get(reverse('edit_employee', args=[employee.id]))
+        self.assertEqual(response.status_code, 200)
 
     def test_user_registration_creates_user(self):
         response = self.client.post('/', {

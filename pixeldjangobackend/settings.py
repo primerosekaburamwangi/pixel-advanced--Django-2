@@ -90,6 +90,9 @@ DATABASES = {
         "PASSWORD": "",
         "HOST": "localhost",  # or your DB host
         "PORT": "3306",  # default MySQL port
+        "OPTIONS": {
+            "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
 
