@@ -1,15 +1,8 @@
-from django import forms
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 
-from .models import Contact, Employee
-
-
-class EmployeeForm(forms.ModelForm):
-    class Meta:
-        model = Employee
-        fields = ['name', 'email', 'phone']
+from .models import Contact
 
 
 def home(request):
@@ -61,49 +54,5 @@ def contact(request):
         return redirect('contact')
 
     return render(request, 'contact.html')
-
-
-def create_emp(request):
-    if request.method == 'POST':
-        form = EmployeeForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Employee created successfully.')
-            return redirect('show_employees')
-    else:
-        form = EmployeeForm()
-
-    return render(request, 'index.html', {'form': form})
-
-
-def show_employees(request):
-    employees = Employee.objects.all()
-    return render(request, 'show.html', {'employees': employees})
-
-
-def edit_employee(request, id):
-    employee = Employee.objects.get(id=id)
-    form = EmployeeForm(instance=employee)
-    return render(request, 'Edit.html', {'employee': employee, 'form': form})
-
-
-def update_employee(request, id):
-    employee = Employee.objects.get(id=id)
-    if request.method == 'POST':
-        form = EmployeeForm(request.POST, instance=employee)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Employee updated successfully.')
-            return redirect('show_employees')
-    else:
-        form = EmployeeForm(instance=employee)
-    return render(request, 'Edit.html', {'employee': employee, 'form': form})
-
-
-def delete_employee(request, id):
-    employee = Employee.objects.get(id=id)
-    employee.delete()
-    messages.success(request, 'Employee deleted successfully.')
-    return redirect('show_employees')
 
 

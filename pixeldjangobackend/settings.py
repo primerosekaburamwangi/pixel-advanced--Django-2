@@ -88,11 +88,8 @@ DATABASES = {
         "NAME": "pixel",  # your database name
         "USER": "root",
         "PASSWORD": "",
-        "HOST": "localhost",  # or your DB host
+        "HOST": "localhost",
         "PORT": "3306",  # default MySQL port
-        "OPTIONS": {
-            "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
     }
 }
 
